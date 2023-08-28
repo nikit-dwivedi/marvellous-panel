@@ -1,0 +1,130 @@
+<section id="ngx-datatable-kitchen-sink">
+    <div class="card">
+        <div class="card-body">
+        <div class="head-btn">
+            <h4 class="card-title">KYC List</h4>
+            <!-- <button class="btn btn-add" (click)="openModelAdd(content)"><span>Add New</span> <i
+                    class="fa-solid fa-circle-plus"></i></button> -->
+        </div>
+        <div class="row">
+            <div class="col-12 mb-50">
+            </div>
+            <div class="col-md-10 col-12">
+                <div class="d-flex justify-content-between align-items-center m-1">
+                    <div>
+                    <label class="d-flex align-items-center">Show
+                        <select class="form-control mx-25" [(ngModel)]="basicSelectedOption">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        entries</label>
+                    </div>
+
+                    <div>
+                        <label class="ml-2 d-flex align-items-center">Settelment
+                            
+                            <select class="form-control mx-25"  [(ngModel)]="basicSelectedOption1" (change)="selcectStatus($event)">       
+                                <option [ngValue]="null" selected disabled>Select</option>
+                                <option value="true">Verified</option>
+                                <option value="false">Not Verified</option>
+                            </select>
+                        </label>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-2 col-12 d-flex justify-content-md-end">
+                <div
+                    class="d-flex align-items-center justify-content-end pb-1 pl-1 pl-md-0 pb-md-0">
+                    <div class="input-group mb-1 search-table">
+                        <input type="search" placeholder="Search" class="form-control ml-25"
+                            (keyup)="filterUpdate($event)" (search)="filterUpdate($event)" />
+                    </div>
+                    <button csvLink (click)="downloadCSV($event)"
+                        class="btn btn-outline-secondary float-right csv-export" rippleEffect><img
+                            src="assets/images/excel-icon.png" alt=""> </button>
+                </div>
+            </div>
+        </div>
+        <ngx-datatable class="material container striped" [columns]="cols" [rows]="kitchenSinkRows" [rowHeight]="58"
+            rowHeight="auto" class="bootstrap core-bootstrap" [limit]="5" [columnMode]="ColumnMode.force" [headerHeight]="40"
+            [footerHeight]="50" [scrollbarH]="true" [selectionType]="SelectionType.checkbox" [limit]="basicSelectedOption"
+            (activate)="onActivate($event)" (select)="onSelect($event)">
+            <ngx-datatable-column [width]="5" [sortable]="false" [canAutoResize]="false" [draggable]="false"
+                [resizeable]="false">
+                
+                
+            </ngx-datatable-column>
+            <ngx-datatable-column name="S.No." [width]="50" [sortable]="false">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row">
+                    {{rowIndex+1}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="name" prop="name" [width]="100"></ngx-datatable-column>
+            <ngx-datatable-column name="Occupation" prop="occupation" [width]="100"></ngx-datatable-column>
+            <ngx-datatable-column name="Adhaar Number" prop="aadhaarNumber" [width]="100"></ngx-datatable-column>
+            <ngx-datatable-column name="Pan Number" prop="panNumber" [width]="100"></ngx-datatable-column>
+            <ngx-datatable-column name="Is Verified" prop="isVerified" [width]="100"></ngx-datatable-column>
+            
+            <ngx-datatable-column name="Action" prop="Action" [width]="140" class="badge badge-light-success badge-pill" [sortable]="false">
+            <ng-template class="d-flex align-items-center btn-block-sec" let-value="value" let-row="row" ngx-datatable-cell-template>
+                <button class="btn btn-edit" (click) = "viewDetails(row)"><img src="/assets/images/view-icon.png"></button>
+                  <button *ngIf="isverified" class="btn btn-primary" (click) = "openKycStatusChangeModal(content2,row)">Unverify</button>
+                  <button *ngIf="isnotVerified" class="btn btn-primary" (click) = "openKycStatusChangeModal(content,row)">Verify</button>
+            </ng-template>
+            <!-- <ng-template class="d-flex align-items-center btn-block-sec" let-value="value" let-row="row" ngx-datatable-cell-template>
+            </ng-template> -->
+            
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+</div>
+</section> 
+
+<!-- verify user Modal -->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Verify User</h4>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <p>
+            Are you sure you want to Verify ?
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="block-btn btn btn-primary" (click)="modal.close('Cross click')" rippleEffect>
+            Cancel
+        </button>
+        <button type="button" class="block-btn btn btn-primary" (click)="modal.close('Accept click')" (click)="verifyKyc()" rippleEffect>
+            Confirm
+        </button>
+    </div>
+</ng-template>
+
+<!-- unverify user Modal -->
+<ng-template #content2 let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Unverify User</h4>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <p>
+            Are you sure you want to Unverify ?
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="block-btn btn btn-primary" (click)="modal.close('Cross click')" rippleEffect>
+            Cancel
+        </button>
+        <button type="button" class="block-btn btn btn-primary" (click)="modal.close('Accept click')" (click)="unVerifyKyc()" rippleEffect>
+            Confirm
+        </button>
+    </div>
+</ng-template>

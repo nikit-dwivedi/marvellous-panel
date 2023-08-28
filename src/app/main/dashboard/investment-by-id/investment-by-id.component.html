@@ -1,0 +1,215 @@
+<section id="ngx-datatable-kitchen-sink">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+            <h4 class="card-title">investment by id List</h4>
+            <!-- <button class="block-btn ml-2">Add</button> -->
+        </div>
+        <div class="row">
+            <div class="col-12 mb-50">
+            </div>
+            <div class="col-md-10 col-12">
+                <div class="d-flex justify-content-between align-items-center m-1">
+                    <div>
+                    <label class="d-flex align-items-center">Show
+                        <select class="form-control mx-25" [(ngModel)]="basicSelectedOption">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        entries</label>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" (click)="openNewInvestmentModal(content)">Create Investment</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-12 d-flex justify-content-md-end">
+                <div
+                    class="d-flex align-items-center justify-content-end pb-1 pl-1 pl-md-0 pb-md-0">
+                    <div class="input-group mb-1 search-table">
+                        <input type="search" placeholder="Search" class="form-control ml-25"
+                            (keyup)="filterUpdate($event)" (search)="filterUpdate($event)" />
+                    </div>
+                    <button csvLink (click)="downloadCSV($event)"
+                        class="btn btn-outline-secondary float-right csv-export" rippleEffect><img
+                            src="assets/images/excel-icon.png" alt=""> </button>
+                </div>
+            </div>
+        </div>
+        <ngx-datatable class="material container striped" [columns]="cols" [rows]="kitchenSinkRows"
+            [rowHeight]="58" rowHeight="auto" class="bootstrap core-bootstrap" [limit]="5" [columnMode]="ColumnMode.force"
+            [headerHeight]="40" [footerHeight]="50" [scrollbarH]="true" [selectionType]="SelectionType.checkbox"
+            [limit]="basicSelectedOption" (activate)="onActivate($event)" (select)="onSelect($event)">
+           
+            <ngx-datatable-column name="S.No." [width]="50" [sortable]="false">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row">
+                    {{rowIndex+1}}
+                </ng-template>
+            </ngx-datatable-column>
+           
+                    <ngx-datatable-column name="amount" prop="amount" [width]="100"></ngx-datatable-column>
+                    <ngx-datatable-column name="interest" prop="interest" [width]="100"></ngx-datatable-column>
+                    <ngx-datatable-column name="locking" prop="locking" [width]="100"></ngx-datatable-column>
+                    <ngx-datatable-column name="plan name" prop="planName" [width]="100"></ngx-datatable-column>
+                    <ngx-datatable-column name="date" prop="date" [width]="200"></ngx-datatable-column>
+                    <ngx-datatable-column name="expire date" prop="expireDate" [width]="150"></ngx-datatable-column>
+                    <ngx-datatable-column name="is Active" prop="isActive" [width]="150" [sortable]="false"></ngx-datatable-column>
+                    <ngx-datatable-column name="profit" prop="profit" [width]="250"></ngx-datatable-column>
+           
+            
+            <ngx-datatable-column name="Action" prop="Action" [width]="100" [sortable]="false"
+                class="badge badge-light-success badge-pill">
+                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                    <!-- <button class="p-0 mr-1 btn edit-btn"><img src="/assets/images/download-icon.png"(click)="generatePDF(pdfContent)"></button> -->
+                    <button class="p-0 mr-1 btn edit-btn"><img src="/assets/images/download-icon.png"(click)="download(row)"></button>
+                    <button class="p-0 btn edit-btn"><img src="/assets/images/edit-icon.png"(click)="openEditinvestmentModal(content2,row)"></button>
+                </ng-template>
+
+                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                </ng-template>
+            </ngx-datatable-column>
+            
+          </ngx-datatable>  
+    </div>
+  </div>
+  </section>
+
+  <!-- create new investment Modal -->
+  <ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Creat Settelment</h4>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <form [formGroup]="newInvestForm" class="form form-vertical" (ngSubmit)="newInvestFormSubmit()">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="first-name-vertical">Plan Name</label>
+                        <select class="form-control mx-25" formControlName="planName" (change)="selectPlan($event)">
+                            <option  [ngValue]="null" selected disabled>Select</option>
+                            <option value="Basic">Basic</option>
+                            <option value="Master">Master</option>
+                            <option value="Advance">Advance</option>
+                            <option value="Exclusive">Exclusive</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="first-name-vertical">Amount</label>
+                        <input type="number" id="email-vertical" class="form-control" name="amount"
+                            formControlName="amount" placeholder="Amount" />
+
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="first-name-vertical">Locking(Months)</label>
+                        <input type="number" id="email-vertical" class="form-control" name="locking"
+                            formControlName="locking" placeholder="Locking" />
+
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="first-name-vertical">Interest %</label>
+                        <input type="number" id="email-vertical" class="form-control" name="interest"
+                            formControlName="interest" placeholder="Interest" />
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-right">
+                    <button type="submit" rippleEffect class="block-btn btn btn-primary">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- <div class="modal-footer">
+        <button type="button" class="block-btn btn btn-primary" (click)="modal.close('Cross click')" rippleEffect>
+            Cancel
+        </button>
+        <button type="button" class="block-btn btn btn-primary" (click)="modal.close('Accept click')" (click)="verifyKyc()" rippleEffect>
+            Confirm
+        </button>
+    </div> -->
+</ng-template>
+
+<!-- edit investment Modal -->
+<ng-template #content2 let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Create Settelment</h4>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <form [formGroup]="editInvestForm" class="form form-vertical" (ngSubmit)="editInvestFormSubmit()">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="first-name-vertical">Plan Name</label>
+                        <select class="form-control mx-25" formControlName="planName" (change)="selectPlan($event)">
+                            <option  [ngValue]="null" selected disabled>Select</option>
+                            <option value="Basic">Basic</option>
+                            <option value="Master">Master</option>
+                            <option value="Advance">Advance</option>
+                            <option value="Exclusive">Exclusive</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="first-name-vertical">Amount</label>
+                        <input type="number" id="email-vertical" class="form-control" name="amount"
+                            formControlName="amount" placeholder="Amount" />
+
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="first-name-vertical">Locking(Months)</label>
+                        <input type="number" id="email-vertical" class="form-control" name="locking"
+                            formControlName="locking" placeholder="Locking" />
+
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="first-name-vertical">Interest %</label>
+                        <input type="number" id="email-vertical" class="form-control" name="interest"
+                            formControlName="interest" placeholder="Interest" />
+
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="first-name-vertical">Expire Date</label>
+                        <input type="date" id="email-vertical" class="form-control" name="expireDate"
+                            formControlName="expireDate" value="24-04-2000" placeholder="Expire Date"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-right">
+                    <button type="submit" rippleEffect class="block-btn btn btn-primary">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+</ng-template>
+
+<ng-template #pdfContent>
+   
+    <div >
+        <h1>Here Some Demo Text for download PDF file.....</h1>
+    </div>
+    
+</ng-template>

@@ -1,0 +1,158 @@
+<div class="row">
+    <div class="col-xs-12 col-lg-6">
+        <h3>Balance Details</h3>
+        <div class="bank-details">
+        <div class="row">
+           <div class="col-6">
+                <p>Invest Amount</p>
+                <p>Profit</p>
+                
+            </div>
+            <div class="col-6">
+                <p>{{balanceList?.investAmount}}</p>
+                <p>{{balanceList?.profit}}</p>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    <div class="col-xs-12 col-lg-6">
+        <h3>Bank Details</h3>
+        <div class="bank-details">
+        <div class="row">
+           <div class="col-6">
+                <p>Bank Name</p>
+                <p>Account Holder Name</p>
+                <p>Account Number</p>
+                <p>IFSC</p>
+                <p>UPI ID</p>
+                
+            </div>
+            <div class="col-6">
+                <p>{{bankDetails?.bankName}}</p>
+                <p>{{bankDetails?.accountHolderName}}</p>
+                <p>{{bankDetails?.accountNumber}}</p>
+                <p>{{bankDetails?.ifsc}}</p>
+                <p>{{bankDetails?.upiId}}</p>
+                
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    <div class="col-xs-12 col-lg-12">
+        <h3>KYC Details</h3>
+        <div class="kyc-details">
+        <div class="row">
+           <div class="col-6">
+                <p>Name</p>
+                <p>aadhaarNumber</p>
+                <p>panNumber</p>
+                <p>nomineeName</p>
+                <p>nomineeRelation</p>
+                <p>nomineeAadhaarNo</p>
+                
+                
+                
+            </div>
+            <div class="col-6">
+                <p>{{kycList?.name}} <button (click)="verifyKyc()" class="btn btn-primary float-right">Verify</button></p>
+                <p>{{kycList?.aadhaarNumber}}</p>
+                <p>{{kycList?.panNumber}}</p>
+                <p>{{kycList?.nomineeName}}</p>
+                <p>{{kycList?.nomineeRelation}}</p>
+                <p>{{kycList?.nomineeAadhaarNo}}</p>
+               
+                
+                
+            </div>
+            <div class="col-6">
+                
+                <p>Adhar Front</p>
+                <p>Adhar Back</p>
+                <p>Pan Front</p>
+                <p>Selfie</p>
+                
+                
+            </div>
+            <div class="col-6">
+                
+               <p><button (click)="viewAdharFrontModal(content,kycList)" class="kyc-btn"><img src="assets/images/view-icon.png" alt=""></button></p>
+               <p><button (click)="viewAdharBackModal(content1,kycList)" class="kyc-btn"><img src="assets/images/view-icon.png" alt=""></button></p>
+               <p><button (click)="viewPanModal(content2,kycList)" class="kyc-btn"><img src="assets/images/view-icon.png" alt=""></button></p>
+               <p><button (click)="viewSelfieModal(content3,kycList)" class="kyc-btn"><img src="assets/images/view-icon.png" alt=""></button></p>
+                
+               
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- adhar card front modal -->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Adhar Card Front Image</h4>
+        
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <h5>{{kycList.aadhaarNumber}}</h5>
+        <div class="adhar-img">
+            <img src="{{adharFront}}">
+        </div>
+    </div>
+   
+</ng-template>
+
+<!-- adhar card back modal -->
+<ng-template #content1 let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Adhar Card Back Image</h4>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <h5>{{kycList.aadhaarNumber}}</h5>
+        <div class="adhar-img">
+            <img src="{{adharBack}}">
+        </div>
+    </div>
+   
+</ng-template>
+
+<!-- pan card  modal -->
+<ng-template #content2 let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Pan Card Front Image</h4>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <h5>{{kycList.panNumber}}</h5>
+        <div class="adhar-img">
+            <img src="{{panFront}}">
+        </div>
+    </div>
+   
+</ng-template>
+
+<!-- customer selfie modal -->
+<ng-template #content3 let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Selfie Image</h4>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <div class="adhar-img">
+            <img src="{{selfie}}">
+        </div>
+    </div>
+   
+</ng-template>

@@ -41,7 +41,6 @@ export class AllCustomerComponent implements OnInit {
 
   kycReport() {
     this.userListService.getReport().subscribe((data: any) => {
-      console.log(data.items[0]);
 
       this.customerList = data.items;
       this.rows = data.items;
@@ -53,7 +52,6 @@ export class AllCustomerComponent implements OnInit {
   }
 
   viewDetails(row: any) {
-    console.log(row);
     this.router.navigate(["/dashboard/customerDetails"], { state: { data: row } });
   }
 
@@ -116,6 +114,5 @@ export class AllCustomerComponent implements OnInit {
     // this.selected = [];
   }
   onActivate(event: any) {
-    // console.log('Activate Event', event.type);
   }
 }

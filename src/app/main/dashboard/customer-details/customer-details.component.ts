@@ -26,7 +26,6 @@ export class CustomerDetailsComponent implements OnInit {
       this.router.navigate(["dashboard/allCustomer"])
     }
     this.customId = nav.extras.state.data.customerId  || nav.extras.state.data.customId;
-    console.log("this.customId==================>",this.customId);
    }
 
   ngOnInit(): void {
@@ -46,7 +45,6 @@ export class CustomerDetailsComponent implements OnInit {
   customerKycById(){
     this.userListService.getKycByCid(this.customId).subscribe((data:any) => {
       this.kycList = data.items;
-      console.log("this.kycList",this.kycList);
       
     })
   }

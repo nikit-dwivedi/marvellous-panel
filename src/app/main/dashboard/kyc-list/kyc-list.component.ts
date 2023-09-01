@@ -87,7 +87,6 @@ export class KycListComponent implements OnInit {
       size: 'lg'
     });
     this.customId = kycList.customId
-    console.log(this.customId);
   }
 
   // verify kyc method

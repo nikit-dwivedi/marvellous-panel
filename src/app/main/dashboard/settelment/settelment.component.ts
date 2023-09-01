@@ -45,7 +45,6 @@ export class SettelmentComponent implements OnInit {
     this.getAllSettelMent();
   }
   getStatus(event: any) {
-    // console.log(event.target.value);
     this.status = event.target.value
     this.getAllSettelMent();
   }
@@ -83,12 +82,10 @@ export class SettelmentComponent implements OnInit {
       if(data.status){
         this.toastr.showSuccess(data.message,"Success!");
         this.getAllSettelMent();
-        console.log("Success");
         
       }
       else{
         this.toastr.showError(data.message,"error!");
-        console.log("Failed");
       }
     });
   }
@@ -101,7 +98,6 @@ export class SettelmentComponent implements OnInit {
     });
     
     this.settelmentById = settelment._id
-    console.log("settelment",this.settelmentById);
     
   }
 // change settelment status
@@ -170,6 +166,5 @@ export class SettelmentComponent implements OnInit {
 
   }
   onActivate(event: any) {
-    // console.log('Activate Event', event.type);
   }
 }

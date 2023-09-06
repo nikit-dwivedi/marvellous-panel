@@ -190,7 +190,7 @@ export class InvestmentByIdComponent implements OnInit {
         address: data.items.city,
         plan_name: investment.planName,
         plan_value: investment.amount,
-        plan_roipm: (investment.amount * (investment.interest / 100)) / 12,
+        plan_roipm: Math.floor((investment.amount * (investment.interest / 100)) / 12),
         plan_expire: investment.locking,
         investor_name: data.items.name,
         agreement_date: this.filterDate(investment.date),

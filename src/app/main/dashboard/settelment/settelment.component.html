@@ -1,125 +1,121 @@
 <section id="ngx-datatable-kitchen-sink">
-    <div class="card">
-        <div class="card-body">
-            <div class="d-flex justify-content-between">
-            <h4 class="card-title">All Investment List</h4>
-            <!-- <button class="block-btn ml-2">Add</button> -->
-        </div>
-        <div class="row">
-            <div class="col-12 mb-50">
-            </div>
-            <div class="col-md-10 col-12">
-                <div class="d-flex justify-content-between align-items-center m-1">
-                    <div class="my-2 d-flex justify-content-between">
-                    <label class="d-flex align-items-center">Show
-                        <select class="form-control mx-25" [(ngModel)]="basicSelectedOption">
-                            <option value="12">12</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                        entries</label>
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between">
+        <h4 class="card-title">All Investment List</h4>
+        <!-- <button class="block-btn ml-2">Add</button> -->
+      </div>
+      <div class="row">
+        <div class="col-12 mb-50"></div>
+        <div class="col-md-10 col-12">
+          <div class="d-flex justify-content-between align-items-center m-1">
+            <div class="my-2 d-flex justify-content-between">
+              <label class="d-flex align-items-center"
+                >Show
+                <select class="form-control mx-25" [(ngModel)]="basicSelectedOption">
+                  <option value="12">12</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+                entries</label
+              >
 
-                        <div>
-                            <label class="ml-2 d-flex align-items-center">Settelment
-                                <!-- <form [formGroup]="selectSettelmentForm" class="form form-vertical"aria-placeholder="Select" (change)="selectSettelmentFormSubmit($event)"> -->
-                                <select class="form-control mx-25"  [(ngModel)]="basicSelectedOption1" (change)="getStatus($event)">       
-                                    <option [ngValue]="null" selected disabled>Select</option>
-                                    <option value="Settled">Settled</option>
-                                    <option value="Processing">Processing</option>
-                                </select>
-                            <!-- </form> -->
-                                </label>
-                            </div>
-                    </div>
-                    
-                    <div>
-                        <button class="btn btn-primary" (click)="openSettelemntModal(content)">Create Settelment</button>
-                        </div>
-                        
-                </div>
+              <div>
+                <label class="ml-2 d-flex align-items-center"
+                  >Settelment
+                  <!-- <form [formGroup]="selectSettelmentForm" class="form form-vertical"aria-placeholder="Select" (change)="selectSettelmentFormSubmit($event)"> -->
+                  <select class="form-control mx-25" [(ngModel)]="basicSelectedOption1" (change)="getStatus($event)">
+                    <option [ngValue]="null" selected disabled>Select</option>
+                    <option value="Settled">Settled</option>
+                    <option value="Processing">Processing</option>
+                  </select>
+                  <!-- </form> -->
+                </label>
+              </div>
             </div>
-            <div class="col-md-2 col-12 d-flex justify-content-md-end">
-                <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pl-1 pl-md-0 pb-md-0">
-                    <label class="d-flex align-items-center">Search<input type="search" placeholder="Search"
-                        class="form-control ml-25" (keyup)="filterUpdate($event)" (search)="filterUpdate($event)" /></label>
-                        <button csvLink (click)="downloadCSV($event)" class="btn btn-outline-secondary float-right csv-export" rippleEffect>
-                            <img src="assets/images/excel-icon.png" alt=""></button>
-                </div>
-                
+            <div class="row mx-md-n5">
+              <div class="col px-md-5"><button class="btn btn-primary" (click)="openSettelemntModal(settleAllModel)">Settle All</button></div>
+              <div class="col px-md-5"><button class="btn btn-primary" (click)="openSettelemntModal(content)">Create Settlement</button></div>
             </div>
+          </div>
         </div>
-        <ngx-datatable class="material container striped" [columns]="cols" [rows]="kitchenSinkRows"
-            [rowHeight]="58" rowHeight="auto" class="bootstrap core-bootstrap" [limit]="5" [columnMode]="ColumnMode.force"
-            [headerHeight]="40" [footerHeight]="50" [scrollbarH]="true" [selectionType]="SelectionType.checkbox"
-            [limit]="basicSelectedOption" (activate)="onActivate($event)" (select)="onSelect($event)">
-           
-            <ngx-datatable-column name="S.No." [width]="50" [sortable]="false">
-                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row">
-                    {{rowIndex+1}}
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="name" prop="name" [width]="200"></ngx-datatable-column>
-            <ngx-datatable-column name="phone" prop="phone" [width]="200"></ngx-datatable-column>
-            <ngx-datatable-column name="amount" prop="amount" [width]="100"></ngx-datatable-column>
-            <ngx-datatable-column name="Status" prop="status" [width]="150" [sortable]="false"></ngx-datatable-column>
-           
-            
-            <ngx-datatable-column name="Action" prop="Action" [width]="50" [sortable]="false"
-                class="badge badge-light-success badge-pill">
-                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-                <button class="btn btn-primary" (click) ="openSettelmentStatusChange(content2,row)">Change Status</button>
-                </ng-template>
-                
-            </ngx-datatable-column>
-            
-          </ngx-datatable>  
+        <div class="col-md-2 col-12 d-flex justify-content-md-end">
+          <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pl-1 pl-md-0 pb-md-0">
+            <label class="d-flex align-items-center">Search<input type="search" placeholder="Search" class="form-control ml-25" (keyup)="filterUpdate($event)" (search)="filterUpdate($event)" /></label>
+            <button csvLink (click)="downloadCSV($event)" class="btn btn-outline-secondary float-right csv-export" rippleEffect>
+              <img src="assets/images/excel-icon.png" alt="" />
+            </button>
+          </div>
+        </div>
+      </div>
+      <ngx-datatable class="material container striped" [columns]="cols" [rows]="kitchenSinkRows" [rowHeight]="58" rowHeight="auto" class="bootstrap core-bootstrap" [limit]="5" [columnMode]="ColumnMode.force" [headerHeight]="40" [footerHeight]="50" [scrollbarH]="true" [selectionType]="SelectionType.checkbox" [limit]="basicSelectedOption" (activate)="onActivate($event)" (select)="onSelect($event)">
+        <ngx-datatable-column name="S.No." [width]="50" [sortable]="false">
+          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row">
+            {{ rowIndex + 1 }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="name" prop="name" [width]="200"></ngx-datatable-column>
+        <ngx-datatable-column name="phone" prop="phone" [width]="200"></ngx-datatable-column>
+        <ngx-datatable-column name="amount" prop="amount" [width]="100"></ngx-datatable-column>
+        <ngx-datatable-column name="Status" prop="status" [width]="150" [sortable]="false"></ngx-datatable-column>
+
+        <ngx-datatable-column name="Action" prop="Action" [width]="50" [sortable]="false" class="badge badge-light-success badge-pill">
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <button class="btn btn-primary" (click)="openSettelmentStatusChange(content2, row)">Change Status</button>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
     </div>
   </div>
-  </section>
+</section>
 
-  <!-- creat settelment modal-->
-  <ng-template #content let-modal>
+<!-- creat settelment modal-->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="myModalLabel1">Creat Settelment</h4>
+    <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" tabindex="0" ngbAutofocus>
+    <p>Are you sure you want to Creat Settelment ?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="block-btn btn btn-primary" (click)="modal.close('Cross click')" rippleEffect>Cancel</button>
+    <button type="button" class="block-btn btn btn-primary" (click)="modal.close('Accept click')" (click)="createSettelment()" rippleEffect>Confirm</button>
+  </div>
+</ng-template>
+
+<ng-template #settleAllModel let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel1">Creat Settelment</h4>
-        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+      <h4 class="modal-title" id="myModalLabel1">Creat Settelment</h4>
+      <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
     <div class="modal-body" tabindex="0" ngbAutofocus>
-        <p>
-            Are you sure you want to Creat Settelment ?
-        </p>
+      <p>Are you sure you want to Settle all  ?</p>
     </div>
     <div class="modal-footer">
-        <button type="button" class="block-btn btn btn-primary" (click)="modal.close('Cross click')" rippleEffect>
-            Cancel
-        </button>
-        <button type="button" class="block-btn btn btn-primary" (click)="modal.close('Accept click')" (click)="createSettelment()" rippleEffect>
-            Confirm
-        </button>
+      <button type="button" class="block-btn btn btn-primary" (click)="modal.close('Cross click')" rippleEffect>Cancel</button>
+      <button type="button" class="block-btn btn btn-primary" (click)="modal.close('Accept click')" (click)="settleALL()" rippleEffect>Confirm</button>
     </div>
-</ng-template>
+  </ng-template>
 
 <!-- change settlement status Modal -->
 <ng-template #content2 let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel1">Change Settelment Status</h4>
-        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body" tabindex="0" ngbAutofocus>
-        <p>
-            Are you sure you want to Change Settelment Status ?
-        </p>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="block-btn btn btn-primary" (click)="modal.close('Cross click')" rippleEffect>
-            Cancel
-        </button>
-        <button type="button" class="block-btn btn btn-primary" (click)="modal.close('Accept click')" (click)="changeStatus()" rippleEffect>
-            Confirm
-        </button>
-    </div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="myModalLabel1">Change Settelment Status</h4>
+    <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" tabindex="0" ngbAutofocus>
+    <p>Are you sure you want to Change Settelment Status ?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="block-btn btn btn-primary" (click)="modal.close('Cross click')" rippleEffect>Cancel</button>
+    <button type="button" class="block-btn btn btn-primary" (click)="modal.close('Accept click')" (click)="changeStatus()" rippleEffect>Confirm</button>
+  </div>
 </ng-template>

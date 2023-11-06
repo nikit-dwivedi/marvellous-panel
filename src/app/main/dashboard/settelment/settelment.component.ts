@@ -89,6 +89,18 @@ export class SettelmentComponent implements OnInit {
       }
     });
   }
+  // settle all
+  settleALL(){
+    this.userListService.settleAllProcessing().subscribe((data:any) => {
+      if(data.status){
+        this.toastr.showSuccess(data.message,"Success!");
+        this.getAllSettelMent();
+      }
+      else{
+        this.toastr.showError(data.message,"error!");
+      }
+    });
+  }
   // open change settelment status Modal
   openSettelmentStatusChange(data:any,settelment:any){
     this.modalService.open(data,{

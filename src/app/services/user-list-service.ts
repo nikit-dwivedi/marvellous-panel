@@ -180,6 +180,14 @@ export class userListService {
       })
     );
   }
+   // creat settelment
+   settleAllProcessing() {
+    return this.http.get(this.apiUrl + "/admin/settled", this.Header()).pipe(
+      map((list: any) => {
+        return list;
+      })
+    );
+  }
   // changes settelment status by _Id
   chnageSettelmentStatus(_id: any) {
     return this.http.get(this.apiUrl + "/admin/settledById/" + _id, this.Header()).pipe(

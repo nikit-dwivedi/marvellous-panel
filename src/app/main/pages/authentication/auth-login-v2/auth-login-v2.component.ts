@@ -23,8 +23,8 @@ export class AuthLoginV2Component implements OnInit {
   public returnUrl: string;
   public error = '';
   public passwordTextType: boolean;
-  private username="admin@mining"
-  private pass = "admin@777"
+  private username=""
+  private pass = ""
 
   // Private
   private _unsubscribeAll: Subject<any>;
